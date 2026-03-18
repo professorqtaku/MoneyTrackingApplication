@@ -6,15 +6,13 @@ namespace Money_Tracking_Application.components
     {
         public string Title { get; set; } = "";
         public float Amount { get; set; } = 0;
-        public Month Month { get; set; } = Month.January;
+        public Month Month { get; set; }
 
-        public Item() { }
-
-        public Item(string title, float amount, Month month)
+        public Item(string title, float amount, Month? month)
         {
             Title = title;
             Amount = amount;
-            Month = month;
+            Month = month ?? (Month)DateTime.Now.Month;
         }
 
         public Item SetItem(string title, float amount, Month month)
