@@ -7,7 +7,6 @@ namespace Money_Tracking_Application
     {
         public void Run()
         {
-            Console.WriteLine("IN THE APP");
             Menu menu = new Menu();
             while (true)
             {
@@ -18,7 +17,7 @@ namespace Money_Tracking_Application
                     menu.SaveAndQuit();
                     break;
                 }
-                bool isValid = ValidateInput(input);
+                var isValid = ValidateInput(input);
                 while (!isValid)
                 {
                     // try again
@@ -34,7 +33,7 @@ namespace Money_Tracking_Application
         {
             Console.Write(String.IsNullOrEmpty(msg) ? msg : "Enter your choice: ");
             string input = Console.ReadLine() ?? string.Empty;
-            return String.IsNullOrWhiteSpace(input) ? string.Empty : input;
+            return String.IsNullOrWhiteSpace(input) ? string.Empty : input.Trim();
         }
 
         private bool ValidateInput(string input)
