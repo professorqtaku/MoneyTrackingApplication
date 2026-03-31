@@ -7,10 +7,11 @@ namespace Money_Tracking_Application.components
         public static void ShowMainMenu(bool clear = false)
         {
             if (clear) Console.Clear();
-            Console.WriteLine("({0}) Show items (All/Expense(s)/Income(s))", 1);
-            Console.WriteLine("({0}) Add New Expense/Income", 2);
-            Console.WriteLine("({0}) Edit Item (edit, remove)", 3);
-            Console.WriteLine("({0}) Save and Quit", 4);
+            Console.WriteLine("Pick an option: ");
+            MessageHandler.ShowListNumber(prefix: "1", message: "Show items (All/Expense(s)/Income(s))");
+            MessageHandler.ShowListNumber(prefix: "2", message: "Add New Expense/Income");
+            MessageHandler.ShowListNumber(prefix: "3", message: "Edit Item (edit, remove)");
+            MessageHandler.ShowListNumber(prefix: "4", message: "Save and Quit");
         }
 
         public static void SaveAndQuit()
@@ -21,12 +22,12 @@ namespace Money_Tracking_Application.components
             Environment.Exit(0);
         }
 
-        public static string GetInput(string prompt = "Enter your choice: ", bool allowEmpty = false)
+        public static string GetInput(string? prompt = "", bool allowEmpty = false)
         {
             string input;
             while (true)
             {
-                Console.Write(prompt);
+                if (!string.IsNullOrEmpty(prompt)) Console.Write(prompt);
                 input = Console.ReadLine() ?? string.Empty;
                 if (!allowEmpty && string.IsNullOrWhiteSpace(input))
                 {
@@ -41,9 +42,10 @@ namespace Money_Tracking_Application.components
 
         public static void ShowItemTypeMenu()
         {
-            Console.WriteLine("({0}) Show All Items", 1);
-            Console.WriteLine("({0}) Show Expenses", 2);
-            Console.WriteLine("({0}) Show Incomes", 3);
+            MessageHandler.ShowMessage("Select an option of items to show:");
+            MessageHandler.ShowListNumber(prefix: "1", message: "All Items");
+            MessageHandler.ShowListNumber(prefix: "2", message: "Expenses");
+            MessageHandler.ShowListNumber(prefix: "3", message: "Incomes");
         }
     }
 }
