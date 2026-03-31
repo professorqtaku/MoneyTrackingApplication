@@ -27,5 +27,35 @@ namespace MoneyTrackingApplication.utils
         {
             ShowMessage(message, ConsoleColor.Red);
         }
+        public static void InfoMessage(string message)
+        {
+            ShowMessage(message, ConsoleColor.Blue);
+        }
+        public static void SuccessMessage(string message)
+        {
+            ShowMessage(message, ConsoleColor.Green);
+        }
+
+
+        public static void ShowListNumber(string message = "", string prefix = "", ConsoleColor messageColor = ConsoleColor.White, ConsoleColor prefixColor = ConsoleColor.DarkMagenta)
+        {
+            ConsoleColor previousColor = Console.ForegroundColor;
+            if (!string.IsNullOrEmpty(prefix))
+            {
+                Console.Write("(");
+                Console.ForegroundColor = prefixColor;
+                Console.Write(prefix);
+                Console.ForegroundColor = previousColor;
+                Console.Write(") ");
+            }
+
+            if (!string.IsNullOrEmpty(message)) {
+                Console.ForegroundColor = messageColor;
+                Console.Write(message);
+                Console.ForegroundColor = previousColor;
+            }
+            Console.WriteLine();
+        }
+        
     }
 }
