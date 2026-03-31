@@ -1,25 +1,11 @@
 ﻿namespace Money_Tracking_Application.components
 {
-    public enum ItemType
+    class Item(string title, float amount, DateTime? date, ItemType? type)
     {
-        INCOME,
-        EXPENSE
-    }
-
-    class Item
-    {
-        public string Title { get; set; } = "";
-        public float Amount { get; set; } = 0;
-        public DateTime Date { get; set; }
-        public ItemType Type { get; set; }
-
-        public Item(string title, float amount, DateTime? date, ItemType? type)
-        {
-            Title = title;
-            Amount = amount;
-            Date = date ?? DateTime.Now;
-            Type = type ?? ItemType.EXPENSE;
-        }
+        public string Title { get; set; } = title;
+        public float Amount { get; set; } = amount;
+        public DateTime Date { get; set; } = date ?? DateTime.Now;
+        public ItemType Type { get; set; } = type ?? ItemType.Expense;
 
         public Item SetItem(string title, float amount, DateTime date)
         {

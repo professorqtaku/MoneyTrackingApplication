@@ -5,43 +5,43 @@ namespace Money_Tracking_Application
 {
     internal class App
     {
+        private ItemManager _itemManager = new ItemManager();
         public void Run()
         {
-            Menu menu = new Menu();
             while (true)
             {
-                menu.ShowMenu();
-                var input = RequestChoice();
-                if (input == "4")
-                {
-                    menu.SaveAndQuit();
-                    break;
-                }
-                var isValid = ValidateInput(input);
-                while (!isValid)
-                {
-                    // try again
-                    MessageHandler.ErrorMessage("Invalid input, please try again.");
-                    input = RequestChoice();
-                    isValid = ValidateInput(input);
-                }
+                Menu.ShowMainMenu();
+                var input = Menu.GetInput();
                 MessageHandler.ShowMessage($"You entered: {input}", ConsoleColor.Green);
+                HandleFirstChoie(input);
+                Console.WriteLine();
             }
 }
 
-        private string RequestChoice(string msg = "")
+        // This method gets the input from user and handles the choices in a switch statement, it is called in the Run method
+        private void HandleFirstChoie(string input)
         {
-            Console.Write(String.IsNullOrEmpty(msg) ? msg : "Enter your choice: ");
-            string input = Console.ReadLine() ?? string.Empty;
-            return String.IsNullOrWhiteSpace(input) ? string.Empty : input.Trim();
-        }
-
-        private bool ValidateInput(string input)
-        {
-            if (String.IsNullOrEmpty(input)){
-                return false;
+            switch (input)
+            {
+                case "1":
+                    _itemManager.HandleDisplayItems();
+                    break;
+                case "2":
+                    _itemManager.HandleAddItem();
+                    break;
+                case "3":
+                    //_itemManager.DeleteItem();
+                    break;
+                case "4":
+                    //_itemManager.UpdateItem();
+                    break;
+                case "5":
+                    Menu.SaveAndQuit();
+                    break;
+                default:
+                    MessageHandler.ErrorMessage("Invalid choice. Please try again.");
+                    break;
             }
-            return true;
         }
 
     }
