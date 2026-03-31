@@ -1,6 +1,6 @@
 using System;
 
-namespace Money_Tracking_Application.components
+namespace MoneyTrackingApplication.Enums
 {
     public enum ItemType
     {

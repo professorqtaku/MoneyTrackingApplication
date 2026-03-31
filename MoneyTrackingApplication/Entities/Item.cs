@@ -1,17 +1,20 @@
-﻿namespace Money_Tracking_Application.components
+﻿using MoneyTrackingApplication.Enums;
+
+namespace MoneyTrackingApplication.Entities
 {
-    class Item(string title, float amount, DateTime? date, ItemType? type)
+    class Item(string title, double amount, DateTime? date, ItemType? type)
     {
         public string Title { get; set; } = title;
-        public float Amount { get; set; } = amount;
+        public double Amount { get; set; } = amount;
         public DateTime Date { get; set; } = date ?? DateTime.Now;
         public ItemType Type { get; set; } = type ?? ItemType.Expense;
 
-        public Item SetItem(string title, float amount, DateTime date)
+        public Item SetItem(string title, double amount, DateTime date, ItemType type)
         {
             Title = title;
             Amount = amount;
             Date = date;
+            Type = type;
             return this;
         }
 
