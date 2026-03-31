@@ -191,7 +191,7 @@ namespace Money_Tracking_Application.components
         private ItemType? PromptType()
         {
             MessageHandler.ShowMessage("Type ('expense' or 'income') - leave empty for expense:");
-            string input = Menu.GetInput();
+            string input = Menu.GetInput(allowEmpty: true);
             if (string.Equals(input, "q", StringComparison.OrdinalIgnoreCase)) return null;
 
             if (string.IsNullOrWhiteSpace(input)) return ItemType.Expense;

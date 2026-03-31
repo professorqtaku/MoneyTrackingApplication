@@ -21,14 +21,14 @@ namespace Money_Tracking_Application.components
             Environment.Exit(0);
         }
 
-        public static string GetInput(string prompt = "Enter your choice: ")
+        public static string GetInput(string prompt = "Enter your choice: ", bool allowEmpty = false)
         {
             string input;
             while (true)
             {
                 Console.Write(prompt);
                 input = Console.ReadLine() ?? string.Empty;
-                if (string.IsNullOrWhiteSpace(input))
+                if (!allowEmpty && string.IsNullOrWhiteSpace(input))
                 {
                     MessageHandler.ErrorMessage("Input cannot be empty. Please try again.");
                     continue;
