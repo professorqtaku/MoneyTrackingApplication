@@ -17,9 +17,16 @@ namespace Money_Tracking_Application.components
         public static void SaveAndQuit()
         {
             MessageHandler.ShowMessage("Saving data...", ConsoleColor.Yellow);
+            bool saved = FileHandler.Save();
             // Here you would add code to save your data to a file or database
-            MessageHandler.ShowMessage("Data saved successfully. Exiting application.", ConsoleColor.Green);
-            Environment.Exit(0);
+            if (saved)
+            {
+                MessageHandler.InfoMessage("Thank you for using the Money Tracking Application!");
+                MessageHandler.ShowMessage("Exiting app...");
+                Environment.Exit(0);
+                return;
+            }
+
         }
 
         public static string GetInput(string? prompt = "", bool allowEmpty = false)
