@@ -5,10 +5,10 @@ namespace Money_Tracking_Application
 {
     internal class App
     {
-        private ItemService _itemManager = new ItemService();
         public void Run()
         {
             bool firstRun = true;
+            FileHandler.Open();
             WelcomeMessage();
             while (true)
             {
@@ -30,7 +30,7 @@ namespace Money_Tracking_Application
         private void WelcomeMessage()
         {
             MessageHandler.ShowMessage("Welcome to TrackMoney");
-            double total = _itemManager.GetTotalAmount();
+            double total = ItemService.Instance.GetTotalAmount();
             string presentation = total > 0 ? total.ToString() : "-";
             MessageHandler.ShowMessage($"You have currently ({presentation}) kr on your account.");
         }
@@ -41,18 +41,15 @@ namespace Money_Tracking_Application
             switch (input)
             {
                 case "1":
-                    _itemManager.HandleDisplay();
+                    ItemService.Instance.HandleDisplay();
                     break;
                 case "2":
-                    _itemManager.HandleAdd();
+                    ItemService.Instance.HandleAdd();
                     break;
                 case "3":
-                    _itemManager.HandleSearchAndEdit();
+                    ItemService.Instance.HandleSearchAndEdit();
                     break;
                 case "4":
-                    //_itemManager.UpdateItem();
-                    break;
-                case "5":
                     Menu.SaveAndQuit();
                     break;
                 default:
