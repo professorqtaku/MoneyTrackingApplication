@@ -29,7 +29,7 @@ namespace MoneyTrackingApplication.utils
         }
         public static void InfoMessage(string message)
         {
-            ShowMessage(message, ConsoleColor.Blue);
+            ShowMessage(message, ConsoleColor.Yellow);
         }
         public static void SuccessMessage(string message)
         {
