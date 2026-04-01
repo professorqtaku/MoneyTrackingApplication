@@ -6,17 +6,11 @@ namespace Money_Tracking_Application.components
 {
     internal class ItemService
     {
+        // singleton
+        private static readonly Lazy<ItemService> _instance = new Lazy<ItemService>(() => new ItemService());
         public List<Item> Items { get; set; } = new List<Item>();
-
-        public ItemService()
-        {
-            // create some dummy data for testing
-            Items.Add(new Item("Groceries", 150.75f, DateTime.Now.AddDays(-2), ItemType.Expense));
-            Items.Add(new Item("Salary", 3000f, DateTime.Now.AddDays(-10), ItemType.Income));
-            Items.Add(new Item("Electricity Bill", 60.5f, DateTime.Now.AddDays(-5), ItemType.Expense));
-            Items.Add(new Item("Freelance Project", 500f, DateTime.Now.AddDays(-15), ItemType.Income));
-
-        }
+        private ItemService(){}
+        public static ItemService Instance => _instance.Value;
 
         public double GetTotalAmount()
         {
@@ -349,27 +343,23 @@ namespace Money_Tracking_Application.components
 
         private static DateTime? PromptDate(bool allowEmpty = false)
         {
-            string prompt = "Date: ";
-            MessageHandler.ShowMessage("Date (yyyy-MM-dd) or leave empty for today:");
-            string input = Menu.GetInput(prompt, allowEmpty);
-            if (string.Equals(input, "q", StringComparison.OrdinalIgnoreCase)) return null;
-
-            if (string.IsNullOrWhiteSpace(input))
-                return allowEmpty ? null : DateTime.Now;
-
-            if (DateTime.TryParse(input, out var date)) return date;
-
-            while (!DateTime.TryParse(input, out date))
+            while (true)
             {
-                MessageHandler.ErrorMessage("Invalid date. Enter in format yyyy-MM-dd or 'q' to cancel.");
-                input = Menu.GetInput(prompt);
-                if (string.Equals(input, "q", StringComparison.OrdinalIgnoreCase)) return null;
+                string prompt = "Date: ";
+                string allowEmptyString = allowEmpty ? ". Leave empty to keep previous value. " : "";
+                MessageHandler.ShowMessage($"Date (yyyy-MM-dd) or 'd' for today {allowEmptyString}:");
+                string input = Menu.GetInput(prompt, allowEmpty);
+                if (string.Equals(input, "q", StringComparison.OrdinalIgnoreCase)
+                    || (string.IsNullOrWhiteSpace(input) && allowEmpty)) return null;
 
-                if (string.IsNullOrWhiteSpace(input))
-                    return allowEmpty ? null : DateTime.Now;
+                if (string.Equals(input, "d", StringComparison.OrdinalIgnoreCase)) return DateTime.Now;
+
+                if (DateTime.TryParse(input, out var date)) return date;
+                else
+                {
+                    MessageHandler.ErrorMessage("Invalid input, please try again");
+                }
             }
-
-            return date;
         }
 
         private static ItemType? PromptType(bool allowEmpty = false)
